@@ -21,6 +21,7 @@
 		C9709C7318FC5F860012B8C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9709C5518FC5F860012B8C8 /* UIKit.framework */; };
 		C9709C7B18FC5F860012B8C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9709C7918FC5F860012B8C8 /* InfoPlist.strings */; };
 		C9709C7D18FC5F860012B8C8 /* Morse_CodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9709C7C18FC5F860012B8C8 /* Morse_CodeTests.m */; };
+		C9C973E218FC79100025317F /* NSString+MorseCodeString.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C973E118FC79100025317F /* NSString+MorseCodeString.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		C9709C7818FC5F860012B8C8 /* Morse CodeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Morse CodeTests-Info.plist"; sourceTree = "<group>"; };
 		C9709C7A18FC5F860012B8C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9709C7C18FC5F860012B8C8 /* Morse_CodeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Morse_CodeTests.m; sourceTree = "<group>"; };
+		C9C973E018FC79100025317F /* NSString+MorseCodeString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MorseCodeString.h"; sourceTree = "<group>"; };
+		C9C973E118FC79100025317F /* NSString+MorseCodeString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MorseCodeString.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 				C9709C6318FC5F860012B8C8 /* Main.storyboard */,
 				C9709C6618FC5F860012B8C8 /* MVViewController.h */,
 				C9709C6718FC5F860012B8C8 /* MVViewController.m */,
+				C9C973E018FC79100025317F /* NSString+MorseCodeString.h */,
+				C9C973E118FC79100025317F /* NSString+MorseCodeString.m */,
 				C9709C6918FC5F860012B8C8 /* Images.xcassets */,
 				C9709C5818FC5F860012B8C8 /* Supporting Files */,
 			);
@@ -250,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9C973E218FC79100025317F /* NSString+MorseCodeString.m in Sources */,
 				C9709C5E18FC5F860012B8C8 /* main.m in Sources */,
 				C9709C6818FC5F860012B8C8 /* MVViewController.m in Sources */,
 				C9709C6218FC5F860012B8C8 /* MVAppDelegate.m in Sources */,
@@ -457,6 +463,7 @@
 				C9709C8218FC5F860012B8C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9709C8318FC5F860012B8C8 /* Build configuration list for PBXNativeTarget "Morse CodeTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +472,7 @@
 				C9709C8518FC5F860012B8C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
