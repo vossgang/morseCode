@@ -43,7 +43,7 @@
                 //do stuff BBB
                 break;
             case 'C':
-            case 'c':
+            case 'c': 
                 morseString = @"-.-.";
                 //do stuff CCC
                 break;
