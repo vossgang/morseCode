@@ -12,5 +12,6 @@
 
 +(NSString *)convertStringToMorse:(NSString *)string;
 +(NSString *)convertCharToMorse:(char)letter;
++(NSDictionary *)morseDictionary;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C926A4F118FD8C5A00017BEC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C926A4F018FD8C5A00017BEC /* AVFoundation.framework */; };
 		C9709C5218FC5F860012B8C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9709C5118FC5F860012B8C8 /* Foundation.framework */; };
 		C9709C5418FC5F860012B8C8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9709C5318FC5F860012B8C8 /* CoreGraphics.framework */; };
 		C9709C5618FC5F860012B8C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9709C5518FC5F860012B8C8 /* UIKit.framework */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C926A4F018FD8C5A00017BEC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C9709C4E18FC5F860012B8C8 /* Morse Code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Morse Code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9709C5118FC5F860012B8C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9709C5318FC5F860012B8C8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C926A4F118FD8C5A00017BEC /* AVFoundation.framework in Frameworks */,
 				C9709C5418FC5F860012B8C8 /* CoreGraphics.framework in Frameworks */,
 				C9709C5618FC5F860012B8C8 /* UIKit.framework in Frameworks */,
 				C9709C5218FC5F860012B8C8 /* Foundation.framework in Frameworks */,
@@ -104,6 +107,7 @@
 		C9709C5018FC5F860012B8C8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C926A4F018FD8C5A00017BEC /* AVFoundation.framework */,
 				C9709C5118FC5F860012B8C8 /* Foundation.framework */,
 				C9709C5318FC5F860012B8C8 /* CoreGraphics.framework */,
 				C9709C5518FC5F860012B8C8 /* UIKit.framework */,
