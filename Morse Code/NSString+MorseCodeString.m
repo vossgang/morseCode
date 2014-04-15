@@ -19,7 +19,7 @@
     
     for (int i = 0; i < string.length; i++) {
         NSString *addedString = [self convertCharToMorse:[string characterAtIndex:i]];
-        morseString = [NSString stringWithFormat:@"%@%@", morseString, addedString];
+        morseString = [NSString stringWithFormat:@"%@*%@", morseString, addedString];
     }
     return morseString;
 }

@@ -12,10 +12,11 @@
 
 @interface MVViewController () <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView    *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *currentLetterLabel;
 @property (weak, nonatomic) IBOutlet UITextField    *textEntryBox;
 @property (weak, nonatomic) IBOutlet UILabel        *translationLabel;
 @property (nonatomic, strong) NSOperationQueue      *flashQueue;
+@property (weak, nonatomic) IBOutlet UIButton       *translateButton;
 
 @property (nonatomic, strong) AVCaptureDevice       *myDevice;
 @property (nonatomic, strong) NSDictionary          *morseDictionary;
@@ -31,7 +32,6 @@
 {
     [super viewDidLoad];
     
-    _imageView.backgroundColor = [UIColor lightGrayColor];
     
     _translationLabel.text = @" ";
     
@@ -46,6 +46,7 @@
     _morseDictionary =[NSString morseDictionary];
     
     
+    
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -53,10 +54,6 @@
 -(void)flashOnFor:(NSInteger)microSeconds
 {
     NSLog(@"on %ld", microSeconds);
-    
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        _imageView.backgroundColor = [UIColor whiteColor];
-    }];
     
     if ([_myDevice hasTorch] && [_myDevice hasFlash]){
         [_myDevice lockForConfiguration:nil];
@@ -74,9 +71,6 @@
     NSLog(@"off %ld", microSeconds);
 
 
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        _imageView.backgroundColor = [UIColor blackColor];
-    }];
     
     if ([_myDevice hasTorch] && [_myDevice hasFlash]){
         [_myDevice lockForConfiguration:nil];
@@ -96,23 +90,34 @@
 
 - (IBAction)translateToMorse:(id)sender
 {
+    [_translateButton setEnabled:NO];
+    [_textEntryBox setEnabled:NO];
     NSString *transletedTexted = [NSString convertStringToMorse:_textEntryBox.text];
 
     _translationLabel.text = transletedTexted;
     
     for (int i = 0; i < transletedTexted.length; i++) {
         char currentLetter = [transletedTexted characterAtIndex:i];
+        
         [_flashQueue addOperationWithBlock:^{
             if (currentLetter != ' ') {
                 [self flashCharacter:currentLetter];
                 [self flashOffFor:100000];
+            } else if (currentLetter == '*'){
+                [self flashOffFor:200000];
             } else {
-                [self flashOffFor:600000];
+                [self flashOffFor:400000];
+            }
+            
+            if (i == (transletedTexted.length - 1)) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [_translateButton setEnabled:YES];
+                    [_textEntryBox setEnabled:YES];
+                }];
             }
            
         }];
     }
-    
     
 }
 
@@ -141,6 +146,13 @@
 }
 
 
+- (IBAction)cancelOperationQueue:(id)sender
+{
+    [_flashQueue cancelAllOperations];
+    [_translateButton setEnabled:YES];
+    [_textEntryBox setEnabled:YES];
+    
+}
 
 
 
