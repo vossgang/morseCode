@@ -19,9 +19,14 @@
 @end
 
 
+
+
+
 @interface MVTorchController : NSObject
 
 @property (nonatomic, unsafe_unretained) id<MVTorchControllerDelegate> delegate;
+
+@property (nonatomic, strong) NSOperationQueue *flashQueue;
 
 
 @property (nonatomic, strong) AVCaptureDevice       *myDevice;

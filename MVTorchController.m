@@ -18,6 +18,7 @@
     
     if (self) {
         self.myDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        self.flashQueue = [NSOperationQueue new];
 
     }
     
@@ -52,9 +53,8 @@
 
 -(void)morseTorchThis:(NSString *)string
 {
-    NSOperationQueue *flashQueue = [NSOperationQueue new];
     
-    [flashQueue setMaxConcurrentOperationCount:1];
+    [_flashQueue setMaxConcurrentOperationCount:1];
     
     for (int i = 0; i < string.length; i++) {
         NSString *translatedChar = [NSString convertCharToMorse:[string characterAtIndex:i]];
@@ -64,7 +64,7 @@
             
             
             
-            [flashQueue addOperationWithBlock:^{
+            [_flashQueue addOperationWithBlock:^{
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [self.delegate flashingCurentLetter:[NSString stringWithFormat:@"%c", [string characterAtIndex:i]]];
                 }];
@@ -85,7 +85,7 @@
         
     }
     
-    [flashQueue addOperationWithBlock:^{
+    [_flashQueue addOperationWithBlock:^{
         [[NSOperationQueue mainQueue]addOperationWithBlock:^{
             [self.delegate doneFlasing];
         }];

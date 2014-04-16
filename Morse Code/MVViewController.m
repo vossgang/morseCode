@@ -114,7 +114,7 @@
 
 - (IBAction)cancelOperationQueue:(id)sender
 {
-    [_flashQueue cancelAllOperations];
+    [_myTorchController.flashQueue cancelAllOperations];
     [_translateButton setEnabled:YES];
     [_textEntryBox setEnabled:YES];
     [ProgressHUD dismiss];
