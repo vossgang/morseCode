@@ -13,6 +13,7 @@
 @interface MVViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *currentLetterLabel;
+
 @property (weak, nonatomic) IBOutlet UITextField    *textEntryBox;
 @property (weak, nonatomic) IBOutlet UILabel        *translationLabel;
 @property (nonatomic, strong) NSOperationQueue      *flashQueue;
@@ -20,7 +21,6 @@
 
 @property (nonatomic, strong) AVCaptureDevice       *myDevice;
 @property (nonatomic, strong) NSDictionary          *morseDictionary;
-
 
 
 @end
@@ -45,6 +45,7 @@
 
     _morseDictionary =[NSString morseDictionary];
     
+    [_translateButton setEnabled:NO];
     
     
 	// Do any additional setup after loading the view, typically from a nib.
@@ -53,7 +54,6 @@
 
 -(void)flashOnFor:(NSInteger)microSeconds
 {
-    NSLog(@"on %ld", microSeconds);
     
     if ([_myDevice hasTorch] && [_myDevice hasFlash]){
         [_myDevice lockForConfiguration:nil];
@@ -61,14 +61,13 @@
         [_myDevice setTorchMode:AVCaptureTorchModeOn];
         [_myDevice unlockForConfiguration];
     }
-    usleep(microSeconds);
+    usleep((unsigned int)microSeconds);
 
     
 }
 
 -(void)flashOffFor:(NSInteger)microSeconds
 {
-    NSLog(@"off %ld", microSeconds);
 
 
     
@@ -78,7 +77,7 @@
         [_myDevice setTorchMode:AVCaptureTorchModeOff];
         [_myDevice unlockForConfiguration];
     }
-    usleep(microSeconds);
+    usleep((unsigned int)microSeconds);
 
 }
 
@@ -92,33 +91,43 @@
 {
     [_translateButton setEnabled:NO];
     [_textEntryBox setEnabled:NO];
+    
     NSString *transletedTexted = [NSString convertStringToMorse:_textEntryBox.text];
-
     _translationLabel.text = transletedTexted;
     
-    for (int i = 0; i < transletedTexted.length; i++) {
-        char currentLetter = [transletedTexted characterAtIndex:i];
-        
-        [_flashQueue addOperationWithBlock:^{
-            if (currentLetter != ' ') {
-                [self flashCharacter:currentLetter];
-                [self flashOffFor:100000];
-            } else if (currentLetter == '*'){
-                [self flashOffFor:200000];
-            } else {
-                [self flashOffFor:400000];
-            }
+    for (int i = 0; i < _textEntryBox.text.length; i++) {
+        NSString *translatedChar = [NSString convertCharToMorse:[_textEntryBox.text characterAtIndex:i]];
+       
+        for (int j = 0; j < translatedChar.length; j++) {
+            char currentLetter = [translatedChar characterAtIndex:j];
             
-            if (i == (transletedTexted.length - 1)) {
+            [_flashQueue addOperationWithBlock:^{
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [_translateButton setEnabled:YES];
-                    [_textEntryBox setEnabled:YES];
+                    _currentLetterLabel.text = [NSString stringWithFormat:@"%c", [_textEntryBox.text characterAtIndex:i]];
                 }];
-            }
-           
-        }];
+                if (currentLetter != ' ') {
+                    [self flashCharacter:currentLetter];
+                    [self flashOffFor:100000];
+                } else {
+                    [self flashOffFor:400000];
+                    NSLog(@"end off word");
+                }
+                if ((j == (translatedChar.length - 1)) && currentLetter != ' ') {
+                    [self flashOffFor:200000];
+                    NSLog(@"end of letter");
+                }
+                
+                if (i == (_textEntryBox.text.length - 1)) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        [_translateButton setEnabled:YES];
+                        [_textEntryBox setEnabled:YES];
+                    }];
+                }
+                
+            }];
+        }
+ 
     }
-    
 }
 
 -(void)flashCharacter:(char)letter
@@ -141,7 +150,11 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    [self translateToMorse:textField];
+    if (_textEntryBox.text.length) {
+        [self translateToMorse:textField];
+    } else {
+        [_translateButton setEnabled:NO];
+    }
     return YES;
 }
 
@@ -155,13 +168,14 @@
 }
 
 
-
-
-
-
-
-
-
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (UITextFieldTextDidChangeNotification || (_textEntryBox.text.length)) {
+        [_translateButton setEnabled:YES];
+    }
+    
+    return YES;
+}
 
 -(void)Queuestuff
 {
