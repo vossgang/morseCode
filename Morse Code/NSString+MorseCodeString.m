@@ -19,7 +19,7 @@
     
     for (int i = 0; i < string.length; i++) {
         NSString *addedString = [self convertCharToMorse:[string characterAtIndex:i]];
-        morseString = [NSString stringWithFormat:@"%@*%@", morseString, addedString];
+        morseString = [NSString stringWithFormat:@"%@ %@", morseString, addedString];
     }
     return morseString;
 }
@@ -30,177 +30,43 @@
 
     if (isalnum(letter)) {        
         switch (letter) {
-            case 'A':
-            case 'a':
-                morseString = @".-";
-                //do stuff AAA
-                break;
-            case 'B':
-            case 'b':
-                morseString = @"-...";
-                //do stuff BBB
-                break;
-            case 'C':
-            case 'c': 
-                morseString = @"-.-.";
-                //do stuff CCC
-                break;
-            case 'D':
-            case 'd':
-                morseString = @"-..";
-                //do stuff DDD
-                break;
-            case 'E':
-            case 'e':
-                morseString = @".";
-                //do stuff EEE
-                break;
-            case 'F':
-            case 'f':
-                morseString = @"..-.";
-                //do stuff FFF
-                break;
-            case 'G':
-            case 'g':
-                morseString = @"--.";
-                //do stuff GGG
-                break;
-            case 'H':
-            case 'h':
-                morseString = @"....";
-                //do stuff HHH
-                break;
-            case 'I':
-            case 'i':
-                morseString = @"..";
-                //do stuff III
-                break;
-            case 'J':
-            case 'j':
-                morseString = @".---";
-                //do stuff JJJ
-                break;
-            case 'K':
-            case 'k':
-                morseString = @"-.-";
-                //do stuff KKK
-                break;
-            case 'L':
-            case 'l':
-                morseString = @".-..";
-                //do stuff LLL
-                break;
-            case 'M':
-            case 'm':
-                morseString = @"--";
-                //do stuff MMM
-                break;
-            case 'N':
-            case 'n':
-                morseString = @"-.";
-                //do stuff NNN
-                break;
-            case 'O':
-            case 'o':
-                morseString = @"---";
-                //do stuff OOO
-                break;
-            case 'P':
-            case 'p':
-                morseString = @".--.";
-                //do stuff PPP
-                break;
-            case 'Q':
-            case 'q':
-                morseString = @"--.-";
-                //do stuff QQQ
-                break;
-            case 'R':
-            case 'r':
-                morseString = @".-.";
-                //do stuff RRR
-                break;
-            case 'S':
-            case 's':
-                morseString = @"...";
-                //do stuff SSS
-                break;
-            case 'T':
-            case 't':
-                morseString = @"-";
-                //do stuff TTT
-                break;
-            case 'U':
-            case 'u':
-                morseString = @"..-";
-                //do stuff UUU
-                break;
-            case 'V':
-            case 'v':
-                morseString = @"...-";
-                //do stuff VVV
-                break;
-            case 'W':
-            case 'w':
-                morseString = @".--";
-                //do stuff WWW
-                break;
-            case 'X':
-            case 'x':
-                morseString = @"-..-";
-                //do stuff XXX
-                break;
-            case 'Y':
-            case 'y':
-                morseString = @"-.--";
-                //do stuff YYY
-                break;
-            case 'Z':
-            case 'z':
-                morseString = @"--..";
-                //do stuff ZZZ
-                break;
+            case 'A': case 'a': morseString = @".-";    break;
+            case 'B': case 'b': morseString = @"-...";  break;
+            case 'C': case 'c': morseString = @"-.-.";  break;
+            case 'D': case 'd': morseString = @"-..";   break;
+            case 'E': case 'e': morseString = @".";     break;
+            case 'F': case 'f': morseString = @"..-.";  break;
+            case 'G': case 'g': morseString = @"--.";   break;
+            case 'H': case 'h': morseString = @"....";  break;
+            case 'I': case 'i': morseString = @"..";    break;
+            case 'J': case 'j': morseString = @".---";  break;
+            case 'K': case 'k': morseString = @"-.-";   break;
+            case 'L': case 'l': morseString = @".-..";  break;
+            case 'M': case 'm': morseString = @"--";    break;
+            case 'N': case 'n': morseString = @"-.";    break;
+            case 'O': case 'o': morseString = @"---";   break;
+            case 'P': case 'p': morseString = @".--.";  break;
+            case 'Q': case 'q': morseString = @"--.-";  break;
+            case 'R': case 'r': morseString = @".-.";   break;
+            case 'S': case 's': morseString = @"...";   break;
+            case 'T': case 't': morseString = @"-";     break;
+            case 'U': case 'u': morseString = @"..-";   break;
+            case 'V': case 'v': morseString = @"...-";  break;
+            case 'W': case 'w': morseString = @".--";   break;
+            case 'X': case 'x': morseString = @"-..-";  break;
+            case 'Y': case 'y': morseString = @"-.--";  break;
+            case 'Z': case 'z': morseString = @"--..";  break;
                 
-            case '0':
-                morseString = @"-----";
-                //do stuff 000
-                break;
-            case '1':
-                morseString = @".----";
-                //do stuff 111
-                break;
-            case '2':
-                morseString = @"..---";
-                //do stuff 222
-                break;
-            case '3':
-                morseString = @"...--";
-                //do stuff 333
-                break;
-            case '4':
-                morseString = @"....-";
-                //do stuff 444
-                break;
-            case '5':
-                morseString = @".....";
-                //do stuff 555
-                break;
-            case '6':
-                morseString = @"-....";
-                //do stuff 666
-                break;
-            case '7':
-                morseString = @"--...";
-                //do stuff 777
-                break;
-            case '8':
-                morseString = @"---..";
-                //do stuff 888
-                break;
-            case '9':
-                morseString = @"----.";
-                //do stuff 999
-                break;
+            case '0':           morseString = @"-----"; break;
+            case '1':           morseString = @".----"; break;
+            case '2':           morseString = @"..---"; break;
+            case '3':           morseString = @"...--"; break;
+            case '4':           morseString = @"....-"; break;
+            case '5':           morseString = @"....."; break;
+            case '6':           morseString = @"-...."; break;
+            case '7':           morseString = @"--..."; break;
+            case '8':           morseString = @"---.."; break;
+            case '9':           morseString = @"----."; break;
                 
             default:
                 break;
@@ -215,7 +81,7 @@
 
 +(NSDictionary *)morseDictionary
 {
-    NSDictionary *morsedic = @{@"A": @".-",
+    return                   @{@"A": @".-",
                                @"B": @"-...",
                                @"C": @"-.-.",
                                @"D": @"-..",
@@ -248,15 +114,18 @@
                                @"3": @"...--",
                                @"4": @"....-",
                                @"5": @".....",
-                               @"6": @"-.....",
+                               @"6": @"-....",
                                @"7": @"--...",
                                @"8": @"---..",
                                @"9": @"----.",
                                
                                @" ": @" "};
-    
-    return morsedic;
 }
 
 
 @end
+
+
+
+
+//@property (nonatomic, assign) id <ANYTHING_THAT_CONFORMES> delegate
