@@ -118,6 +118,7 @@
     [_translateButton setEnabled:YES];
     [_textEntryBox setEnabled:YES];
     [ProgressHUD dismiss];
+    _currentLetterLabel.text = @" ";
 }
 
 
@@ -168,9 +169,8 @@
 
 -(void)doneFlasing
 {
-    [ProgressHUD dismiss];
-    [_textEntryBox setEnabled:YES];
-    [_translateButton setEnabled:YES];
+    [self cancelOperationQueue:self];
+
 }
 
 @end
