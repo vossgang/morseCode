@@ -124,8 +124,3 @@
 
 
 @end
-
-
-
-
-//@property (nonatomic, assign) id <ANYTHING_THAT_CONFORMES> delegate

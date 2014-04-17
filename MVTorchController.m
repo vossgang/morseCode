@@ -9,7 +9,6 @@
 #import "MVTorchController.h"
 #import "NSString+MorseCodeString.h"
 
-
 @implementation MVTorchController
 
 -(id)init
@@ -19,20 +18,15 @@
     if (self) {
         self.myDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         self.flashQueue = [NSOperationQueue new];
-
     }
-    
     
     return self;
 }
 
-
 -(void)flashOnFor:(NSInteger)microSeconds
 {
-    
     if ([_myDevice hasTorch]){
         [_myDevice lockForConfiguration:nil];
-        
         [_myDevice setTorchMode:AVCaptureTorchModeOn];
         [_myDevice unlockForConfiguration];
     }
@@ -41,10 +35,8 @@
 
 -(void)flashOffFor:(NSInteger)microSeconds
 {
-
     if ([_myDevice hasTorch]){
         [_myDevice lockForConfiguration:nil];
-        
         [_myDevice setTorchMode:AVCaptureTorchModeOff];
         [_myDevice unlockForConfiguration];
     }
@@ -61,8 +53,6 @@
         
         for (int j = 0; j < translatedChar.length; j++) {
             char currentLetter = [translatedChar characterAtIndex:j];
-            
-            
             
             [_flashQueue addOperationWithBlock:^{
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -96,9 +86,7 @@
 -(void)flashCharacter:(char)letter
 {
     NSLog(@"%c", letter);
-    
     [self flashOnFor:[self getDelayForMorseItem:letter]];
-    
 }
 
 -(NSInteger)getDelayForMorseItem:(char)item
@@ -109,6 +97,5 @@
         return 300000;
     }
 }
-
 
 @end

@@ -12,28 +12,19 @@
 @protocol MVTorchControllerDelegate <NSObject>
 
 @optional
-
 -(void)flashingCurentLetter:(NSString *)letter;
 -(void)doneFlasing;
 
 @end
 
 
-
-
-
 @interface MVTorchController : NSObject
 
-@property (nonatomic, unsafe_unretained) id<MVTorchControllerDelegate> delegate;
-
-@property (nonatomic, strong) NSOperationQueue *flashQueue;
-
-
-@property (nonatomic, strong) AVCaptureDevice       *myDevice;
-
+@property (nonatomic, unsafe_unretained) id<MVTorchControllerDelegate>  delegate;
+@property (nonatomic, strong)               NSOperationQueue            *flashQueue;
+@property (nonatomic, strong)               AVCaptureDevice             *myDevice;
 
 -(void)morseTorchThis:(NSString *)String;
-
 
 
 @end

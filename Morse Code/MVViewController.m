@@ -15,19 +15,18 @@
 
 @interface MVViewController () <UITextFieldDelegate, MVTorchControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel        *currentLetterLabel;
+@property (weak, nonatomic) IBOutlet    UILabel             *currentLetterLabel;
 
-@property (weak, nonatomic) IBOutlet UITextField    *textEntryBox;
-@property (weak, nonatomic) IBOutlet UILabel        *translationLabel;
-@property (nonatomic, strong) NSOperationQueue      *flashQueue;
-@property (weak, nonatomic) IBOutlet UIButton       *translateButton;
+@property (weak, nonatomic) IBOutlet    UITextField         *textEntryBox;
+@property (weak, nonatomic) IBOutlet    UILabel             *translationLabel;
+@property (nonatomic, strong)           NSOperationQueue    *flashQueue;
+@property (weak, nonatomic) IBOutlet    UIButton            *translateButton;
 
-@property (nonatomic, strong) AVCaptureDevice       *myDevice;
-@property (nonatomic, strong) NSDictionary          *morseDictionary;
+@property (nonatomic, strong)           AVCaptureDevice     *myDevice;
+@property (nonatomic, strong)           NSDictionary        *morseDictionary;
 
-@property (nonatomic, strong) ProgressHUD           *myHUD;
-@property (nonatomic, strong) MVTorchController     *myTorchController;
-
+@property (nonatomic, strong)           ProgressHUD         *myHUD;
+@property (nonatomic, strong)           MVTorchController   *myTorchController;
 
 @end
 
@@ -38,47 +37,17 @@
 {
     [super viewDidLoad];
     
-    _myTorchController = [MVTorchController new];
+    _myTorchController          = [MVTorchController new];
     _myTorchController.delegate = self;
-    
-    _translationLabel.text = _currentLetterLabel.text = @" ";
-    
-    _textEntryBox.delegate = self;
-    
-    _flashQueue = [NSOperationQueue new];
-    [_flashQueue setMaxConcurrentOperationCount:1];
-   
-    _myDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-
-    _morseDictionary =[NSString morseDictionary];
-    
+    _translationLabel.text      = _currentLetterLabel.text = @" ";
+    _textEntryBox.delegate      = self;
+    _flashQueue                 = [NSOperationQueue new];
+    _myDevice                   = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    _morseDictionary            = [NSString morseDictionary];
     [_translateButton setEnabled:NO];
-    
+    [_flashQueue setMaxConcurrentOperationCount:1];
     
 	// Do any additional setup after loading the view, typically from a nib.
-}
-
-
--(void)flashOnFor:(NSInteger)microSeconds
-{
-    if ([_myDevice hasTorch] && [_myDevice hasFlash]){
-        [_myDevice lockForConfiguration:nil];
-        
-        [_myDevice setTorchMode:AVCaptureTorchModeOn];
-        [_myDevice unlockForConfiguration];
-    }
-    usleep((unsigned int)microSeconds);
-}
-
--(void)flashOffFor:(NSInteger)microSeconds
-{
-    if ([_myDevice hasTorch] && [_myDevice hasFlash]){
-        [_myDevice lockForConfiguration:nil];
-        
-        [_myDevice setTorchMode:AVCaptureTorchModeOff];
-        [_myDevice unlockForConfiguration];
-    }
-    usleep((unsigned int)microSeconds);
 }
 
 - (void)didReceiveMemoryWarning
@@ -92,11 +61,11 @@
     [_translateButton setEnabled:NO];
     [_textEntryBox setEnabled:NO];
     
-    NSString *uppercase = [_textEntryBox.text uppercaseString];
-    _textEntryBox.text =  uppercase;
+    NSString *uppercase         = [_textEntryBox.text uppercaseString];
+    _textEntryBox.text          =  uppercase;
     
-    NSString *transletedTexted = [NSString convertStringToMorse:_textEntryBox.text];
-    _translationLabel.text = transletedTexted;
+    NSString *transletedTexted  = [NSString convertStringToMorse:_textEntryBox.text];
+    _translationLabel.text      = transletedTexted;
     
     [_myTorchController morseTorchThis:_textEntryBox.text];
 }
@@ -104,11 +73,13 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+ 
     if (_textEntryBox.text.length) {
         [self translateToMorse:textField];
     } else {
         [_translateButton setEnabled:NO];
     }
+
     return YES;
 }
 
@@ -133,44 +104,31 @@
 
 - (IBAction)turnOnFlash:(id)sender
 {
-    
-    AVCaptureDevice *myDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    if ([myDevice hasTorch] && [myDevice hasFlash]){
-        [myDevice lockForConfiguration:nil];
-        
-        [myDevice setTorchMode:AVCaptureTorchModeOn];
-        [myDevice unlockForConfiguration];
+    if ([_myDevice hasTorch]){
+        [_myDevice lockForConfiguration:nil];
+        [_myDevice setTorchMode:AVCaptureTorchModeOn];
+        [_myDevice unlockForConfiguration];
     }
 }
 
 - (IBAction)turnOffFalsh:(id)sender
 {
-    AVCaptureDevice *myDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    if ([myDevice hasTorch] && [myDevice hasFlash]){
-        [myDevice lockForConfiguration:nil];
-        
-        [myDevice setTorchMode:AVCaptureTorchModeOff];
-        
-        [myDevice unlockForConfiguration];
+    if ([_myDevice hasTorch]){
+        [_myDevice lockForConfiguration:nil];
+        [_myDevice setTorchMode:AVCaptureTorchModeOff];
+        [_myDevice unlockForConfiguration];
     }
 }
 
-
 -(void)flashingCurentLetter:(NSString *)letter
 {
-    
     [ProgressHUD show:[NSString stringWithFormat:@"%@", letter]];
-    
     _currentLetterLabel.text = [NSString stringWithFormat:@"%@", letter];
-    
 }
 
 -(void)doneFlasing
 {
     [self cancelOperationQueue:self];
-
 }
 
 @end
